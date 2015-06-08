@@ -1,0 +1,185 @@
+V "GNAT Lib v2014"
+A -nostdinc
+A -O2
+A --RTS=/bkup/ada/ravenscar-sfp-rm46
+A -fcallgraph-info=da
+A -ffunction-sections
+A -fdata-sections
+A -gnatA
+A -mlittle-endian
+A -mfpu=vfpv3-d16
+A -mfloat-abi=hard
+A -mcpu=cortex-r4
+A -gnatp
+A -gnatg
+A -gnatn
+A -g
+A -mthumb
+P DB
+
+RN
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLEMENTATION_RESTRICTIONS
+RR NO_ELABORATION_CODE
+RV SPARK_05
+
+U system.bb.board_support%b  s-bbbosu.adb	0f0a07c4 NE OL PK
+W system%s		system.ads		system.ali
+W system.bb%s		s-bb.ads		s-bb.ali
+W system.bb.parameters%s  s-bbpara.ads		s-bbpara.ali
+W system.rm46%s		s-rm46.ads		s-rm46.ali
+W system.rm46.pll%s	s-rm4pll.adb		s-rm4pll.ali
+
+U system.bb.board_support%s  s-bbbosu.ads	9dac3044 BN NE OL PR PK
+W system%s		system.ads		system.ali
+W system.bb%s		s-bb.ads		s-bb.ali
+W system.bb.cpu_primitives%s  s-bbcppr.adb	s-bbcppr.ali
+W system.bb.interrupts%s  s-bbinte.adb		s-bbinte.ali
+
+D accessor.ads		20150501183731 024fab8d accessor%s
+D ada.ads		20150501183739 3ffc8e18 ada%s
+D a-unccon.ads		20150501183740 f9eb8f06 ada.unchecked_conversion%s
+D interfac.ads		20150501183734 69adb1b9 interfaces%s
+D system.ads		20150501193650 aa6d6fbd system%s
+D s-bb.ads		20150501183735 883768d6 system.bb%s
+D s-bbbosu.ads		20150503193508 65fa2002 system.bb.board_support%s
+D s-bbbosu.adb		20150605193706 48c9dbdb system.bb.board_support%b
+D s-bbcppr.ads		20150501184058 37229a46 system.bb.cpu_primitives%s
+D s-bbinte.ads		20150501190358 4743e2d6 system.bb.interrupts%s
+D s-bbpara.ads		20150501202615 71adce30 system.bb.parameters%s
+D s-multip.ads		20150501183741 f33e0e35 system.multiprocessors%s
+D s-rm46.ads		20150501183737 811e79ad system.rm46%s
+D s-rm4pll.ads		20150501214958 d28a4b80 system.rm46.pll%s
+D s-stoele.ads		20150501183739 2dc34a04 system.storage_elements%s
+D s-stoele.adb		20150501183735 ed88f8fb system.storage_elements%b
+D s-unstyp.ads		20150501183729 510692af system.unsigned_types%s
+X 5 system.ads
+60K9*System 179e11 7|43r6 44r6 46r9 110r19 116r14 127r19 128r14 178r5 8|37r6
+. 38r6 38r32 39r6 39r32 41r14 413r14 485r19 486r14 513r5
+87M9*Address 7|134r19 8|48r28 50r28 51r28 53r28 54r28 55r28 60r28 62r28 63r28
+. 161r24 163r24 164r24 169r23 177r26 180r26 181r26 182r26 185r27 208r70 235r28
+. 236r28 252r26 264r28 421r25 421r36 437r19
+130I12*Any_Priority{integer} 7|128r21 150r47 8|442r28 486r21 496r47
+132I12*Interrupt_Priority{130I12} 7|136r19 8|213r25 213r47 214r25 214r47
+. 439r19 451r12
+X 6 s-bb.ads
+43K16*BB 5|60k9 6|97e14 7|43r13 44r13 46r16 110r26 116r21 127r26 178r12 8|37r13
+. 41r21 413r21 485r26 513r12
+X 7 s-bbbosu.ads
+46K19*Board_Support 6|43k16 7|178l15 178e28 8|41b24 513l15 513t28
+53U14*Initialize_Board 8|285b14 325l8 325t24
+61M9*Timer_Interval 62r8 68r39 80r33 84r31 8|331r39 344r33 345r26 346r26
+. 347r17 363r31 364r7
+68V13*Max_Timer_Interval{61M9} 69r19 8|331b13
+75V13*Ticks_Per_Second{natural} 76r19 8|337b13
+80U14*Set_Alarm 80>25 8|344b14 357l8 357t17
+80m25 Ticks{61M9} 8|344b25 346r50 354r21
+84V13*Read_Clock{61M9} 8|345s44 352s18 363b13
+89V13*Alarm_Interrupt_ID{10|52I12} 90r19 8|370b13
+93U14*Clear_Alarm_Interrupt 94r19 8|377b14 380l8 380t29
+97V13*Tick_Interrupt_ID{10|52I12} 98r19 8|386b13
+101U14*Clear_Tick_Interrupt 102r19 8|393b14 396l8 396t28
+109U14*Clear_Interrupt_Request 110>7 111r19 8|402b14 405l8 405t31
+110i7 Interrupt{10|52I12} 8|402b39
+114V13*Get_Interrupt_Request{10|52I12} 115>7 117r19 8|411b13
+115i7 Vector{9|96I9} 8|415r32
+126V13*Priority_Of_Interrupt{5|130I12} 127>7 129r19 8|442s44 484b13
+127i7 Interrupt{10|52I12} 8|488r10 488r58
+133U14*Install_Interrupt_Handler 134>7 135>7 136>7 8|436b14 462l8 462t33
+134m7 Handler{5|87M9} 8|437b7 453r35 457r35
+135i7 Interrupt{10|52I12} 8|438b7 442r67 454r32 458r32 461r33
+136i7 Prio{5|132I12} 8|439b7 441r28
+150U14*Set_Current_Priority 150>36 151r19 8|496b14 511l8 511t28
+150i36 Priority{5|130I12} 8|496b36 501r11 502r13
+169V13*Poke_Interrupt_ID{10|52I12} 170r19 8|468b13
+174U14*Clear_Poke_Interrupt 175r19 8|475b14 478l8 478t28
+X 8 s-bbbosu.adb
+48m4 RTI_Base{5|87M9} 50r39 51r39 53r39 54r39 55r39 60r39 62r39 63r39
+50m4 RTIGCTRL{5|87M9} 301r14 301r30 309r14 309r30
+51m4 RTICOMPCTRL{5|87M9} 307r14
+53m4 RTIFRC1{5|87M9} 304r14 364r29
+54m4 RTIUC1{5|87M9} 303r14
+55m4 RTICPUC1{5|87M9} 302r14
+60m4 RTICOMP3{5|87M9} 351r14
+62m4 RTISETINTENA{5|87M9} 310r14
+63m4 RTIINTFLAG{5|87M9} 308r14 350r14 354r43 379r14 395r14
+65i4 RTI_Compare_Interrupt_2{10|52I12} 387r8
+67i4 RTI_Compare_Interrupt_3{10|52I12} 355r39 371r8
+74m4 RTI_kHz{9|42M9} 79r19 93r13 93r41 94r12 94r40 95r12 95r40 96r12 96r40
+. 97r12 97r40 98r12 98r40 99r12 100r12 338r17
+92m4 Prescaler{9|42M9} 302r24 338r35
+123m4 SSIR1{9|42M9} 124r21 125m8 125r8 278m7
+128m4 SSIR1_Key{9|42M9} 278r16
+131m4 SSIF{9|42M9} 132r21 133m8 133r8 244r11
+137m4 SSIFLAG1{9|42M9} 244r20
+140m4 SSIVEC{9|42M9} 141r21 142m8 142r8 244r60
+147i4 Software_Interrupt{10|52I12} 195r18 323r26 324r33
+150U14 Generate_Software_Interrupt 150>43 276b14 279l8 279t35 355s10
+150i43 ID{10|52I12} 276b43 278r34
+153V13 Get_Software_Interrupt{10|52I12} 195s45 243b13
+161m4 VIM_Base{5|87M9} 163r35 164r35 169r34 177r37 180r37 181r37 182r37 185r38
+163m4 IRQINDEX{5|87M9} 416r49
+164m4 FIQINDEX{5|87M9} 417r49
+169m4 FIRQPR0{5|87M9} 488r42 503r38 507r38
+177m4 REQENASET0{5|87M9} 428r14 507r20
+180m4 REQENACLR0{5|87M9} 293r14 503r20
+181m4 REQENACLR1{5|87M9} 294r14
+182m4 REQENACLR2{5|87M9} 295r14
+185m4 WAKEENASET0{5|87M9} 429r14
+188U14 Enable_Interrupt_Request 188>40 324s7 420b14 430l8 430t32 461s7
+188i40 Interrupt{10|52I12} 420b40 421r45 422r48
+191V13 Index_To_Interrupt{10|52I12} 191>33 415s7
+191m33 Index{9|42M9} 192r12 196r36
+208A9 Interrupt_Vector_Table(5|87M9)<integer> 209r24
+209a4 Interrupt_Vectors{208A9} 210r21 211m8 211r8 323m7 454m13 458m13
+213i4 FIQ_Prio{5|132I12} 215r19 456r15 489r12 501r22 502r24
+214i4 IRQ_Prio{5|132I12} 215r30 452r15 490r12
+217m4 NMI_Ints{9|42M9} 293r30
+220b4 FIQ_Masked{boolean} 501r36 504m13 508m13
+223U14 IRQ_Handler 224b24 323r49 454r46
+226U14 FIQ_Handler 227b24 458r46
+231V13 Shift_Left{9|42M9} 231>25 231>35 422s33
+231m25 W{9|42M9}
+231i35 Amount{natural}
+235V14 Read{9|42M9} 235>21 252b13 258l8 258t12 301s24 309s24 354s37 364s23
+. 416s43 417s43 488s36 503s32 507s32
+235m21 Addr{5|87M9} 252b19 254r25
+236U14 Write 236>21 236>37 264b14 270l8 270t13 293s7 294s7 295s7 301s7 302s7
+. 303s7 304s7 307s7 308s7 309s7 310s7 350s7 351s7 379s7 395s7 428s7 429s7
+. 503s13 507s13
+236m21 Addr{5|87M9} 264b21 266r25
+236m37 Val{9|42M9} 264b37 269r12
+253m7 R{9|42M9} 254m11 254r11 255r24 257r14
+265m7 R{9|42M9} 266m11 266r11 267r24 269m7
+345m7 Now{7|61M9} 346r44 352r31
+346m7 Alarm{7|61M9} 351r30
+347m7 Elapsed{7|61M9} 352m7 354r10
+421m7 Regofs{5|87M9} 428r27 429r28
+422m7 Regbit{9|42M9} 428r35 429r36
+442i7 Hw_Prio{5|130I12} 451r32
+X 9 s-bbcppr.ads
+39K19*CPU_Primitives 7|44w16 115r16 8|42r8 412r16 9|142e29
+42M9*Word 8|74r25 74r33 92r25 123r12 128r25 131r11 137r24 140r13 191r41 195r12
+. 217r25 231r29 231r60 235r44 236r43 252r42 253r11 264r43 265r11 278r28 351r24
+. 422r25
+96I9*Vector_Id<short_short_integer> 7|115r31 8|412r31
+104U14*Install_Trap_Handler 8|453s13 457s13
+X 10 s-bbinte.ads
+46K19*Interrupts 7|43w16 89r39 97r38 110r29 116r24 127r29 135r19 169r38 8|42r24
+. 65r39 67r39 147r34 208r42 370r39 386r38 402r51 413r24 438r19 468r38 469r7
+. 485r29 10|90e25
+52I12*Interrupt_ID{natural} 7|89r50 97r49 110r40 116r35 127r40 135r30 169r49
+. 8|65r50 67r50 147r45 150r48 153r43 188r52 191r54 194r17 196r22 208r53 243r43
+. 244r46 276r48 370r50 386r49 402r62 413r35 420r52 438r30 468r49 485r40
+55i4*No_Interrupt{52I12} 8|469r18
+X 11 s-bbpara.ads
+43K19*Parameters 8|37w16 74r39 11|117e25
+50i4*Clock_Frequency{natural} 8|74r50
+X 13 s-rm46.ads
+34K16*RM46 8|38w13 38r39 39r13 39r39 13|424e16
+X 14 s-rm4pll.ads
+4K21*Pll 8|39w18 39r44 14|15e20
+10U14*Initialize_Clocks 8|287s7
+11U14*Pll_Spinup 8|289s7
+

@@ -1,0 +1,198 @@
+------------------------------------------------------------------------------
+--                                                                          --
+--                         GNAT RUN-TIME COMPONENTS                         --
+--                                                                          --
+--          Copyright (C) 2012-2013, Free Software Foundation, Inc.         --
+--                                                                          --
+-- GNAT is free software;  you can  redistribute it  and/or modify it under --
+-- terms of the  GNU General Public License as published  by the Free Soft- --
+-- ware  Foundation;  either version 3,  or (at your option) any later ver- --
+-- sion.  GNAT is distributed in the hope that it will be useful, but WITH- --
+-- OUT ANY WARRANTY;  without even the  implied warranty of MERCHANTABILITY --
+-- or FITNESS FOR A PARTICULAR PURPOSE.                                     --
+--                                                                          --
+--                                                                          --
+--                                                                          --
+--                                                                          --
+--                                                                          --
+-- You should have received a copy of the GNU General Public License and    --
+-- a copy of the GCC Runtime Library Exception along with this program;     --
+-- see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see    --
+-- <http://www.gnu.org/licenses/>.                                          --
+--                                                                          --
+-- GNAT was originally developed  by the GNAT team at  New York University. --
+-- Extensive contributions were provided by Ada Core Technologies Inc.      --
+--                                                                          --
+------------------------------------------------------------------------------
+
+pragma Ada_2012; -- To work around pre-commit check?
+pragma Restrictions (No_Elaboration_Code);
+
+--  This initialization procedure mainly initializes the PLLs and
+--  all derived clocks. For now it also initializes the first USART.
+--  To be moved to s-textio, but needs clock info ???
+
+with Interfaces; use Interfaces;
+with System.RM46;   use System.RM46;
+
+procedure Setup_Pll is
+
+   type HiLo is record
+      Hi : Natural;
+      Lo : Natural;
+   end record;
+
+   --  GLBSTAT defines
+   OSCFAIL    : constant HiLo := (0, 0);
+   RFSLIP     : constant HiLo := (8, 8);
+   FBSLIP     : constant HiLo := (9, 9);
+
+   --  PLLCTL1 defines
+   PLLMUL     : constant HiLo := (15, 0);
+   REFCLKDIF  : constant HiLo := (21, 16);
+   ROF        : constant HiLo := (23, 23);
+   PLLDIV     : constant HiLo := (28, 24);
+   MASK_SLIP  : constant HiLo := (30, 29);
+   ROS        : constant HiLo := (31, 31);
+   pragma Unreferenced (ROF);
+   pragma Unreferenced (MASK_SLIP);
+   pragma Unreferenced (ROS);
+
+   --  PLLCTL2 defines
+   SPR_AMOUNT    : constant HiLo := (8, 0);
+   ODPLL         : constant HiLo := (11, 9);
+   MULMOD        : constant HiLo := (20, 12);
+   SPREADINGRATE : constant HiLo := (30, 22);
+   FMENA         : constant HiLo := (31, 31);
+   pragma Unreferenced (FMENA);
+
+   --  PLLCTL3 defines
+   PLL_MUL2   : constant HiLo := (15, 0);
+   REFCLKDIV2 : constant HiLo := (21, 16);
+   PLLDIV2    : constant HiLo := (28, 24);
+   ODPLL2     : constant HiLo := (31, 29);
+
+   -------------------------------
+   -- Compute Clock Frequencies --
+   -------------------------------
+
+   --  Local Subprograms
+   procedure Reset (Register : in out Word; Mask : Word);
+   procedure Set (Register : in out Word; Mask : Word);
+   pragma Unreferenced (Set);
+   procedure Initialize_Clocks;
+   procedure Rmw (Register : in out Word;
+                  Hi : Natural;
+                  Lo : Natural;
+                  Valarg : Unsigned_32);
+   procedure Rmw (Register : in out Word;
+                  Template : HiLo;
+                  Valarg : Unsigned_32);
+
+   pragma Unreferenced (Reset);
+   -----------
+   -- Reset --
+   -----------
+   procedure Reset (Register : in out Word; Mask : Word) is
+   begin
+      Register := Register and not Mask;
+   end Reset;
+
+   ---------
+   -- Set --
+   ---------
+
+   procedure Set (Register : in out Word; Mask : Word) is
+   begin
+      Register := Register or Mask;
+   end Set;
+
+   procedure Rmw (Register : in out Word;
+                  Hi : Natural;
+                  Lo : Natural;
+                  Valarg : Unsigned_32) is
+      Tmp     : Unsigned_32;
+      Mask    : Unsigned_32;
+      Masklen : Natural;
+      Value   : Unsigned_32;
+      One     : constant Unsigned_32 := 1;
+   begin
+      Tmp      := Unsigned_32 (Register);
+      Masklen  := (Hi - Lo) + 1;
+      Mask     := Shift_Left (One, Masklen) - 1;
+      Value    := Valarg and Mask;
+      Value    := Shift_Left (Value, Lo);
+      Mask     := Shift_Left (Mask, Lo);
+      Tmp      := Tmp and not Mask;
+      Tmp      := Tmp or Value;
+      Register := Word (Tmp);
+   end Rmw;
+
+   procedure Rmw (Register : in out Word;
+                  Template : HiLo;
+                  Valarg : Unsigned_32) is
+      Hi      : Natural;
+      Lo      : Natural;
+      Tmp     : Unsigned_32;
+      Mask    : Unsigned_32;
+      Masklen : Natural;
+      Value   : Unsigned_32;
+      One     : constant Unsigned_32 := 1;
+   begin
+      Hi       := Template.Hi;
+      Lo       := Template.Lo;
+      Tmp      := Unsigned_32 (Register);
+      Masklen  := (Hi - Lo) + 1;
+      Mask     := Shift_Left (One, Masklen) - 1;
+      Value    := Valarg and Mask;
+      Value    := Shift_Left (Value, Lo);
+      Mask     := Shift_Left (Mask, Lo);
+      Tmp      := Tmp and not Mask;
+      Tmp      := Tmp or Value;
+      Register := Word (Tmp);
+   end Rmw;
+
+   -----------------------
+   -- Initialize_Clocks --
+   -----------------------
+
+   procedure Initialize_Clocks is
+      PLL_Mult    : constant Unsigned_32 := 165 - 1;
+      Refclkdiv   : constant Unsigned_32 := 6 - 1;
+   begin
+      --  Disable PLL1 and PLL2
+
+      Rmw (SMF1.CSDISSET, 1, 0, 2);  -- CLKSR1 disabled
+      Rmw (SMF1.CSDISSET, 7, 3, 8);  -- CLKSR6 disabled
+
+      --  SAFETYMCUSW 28 D MR:NA <APPROVED> "Hardware status bit read check"
+      loop
+         exit when (SMF1.CSDIS and 16#42#) = 16#42#;
+      end loop;
+
+      --  Clear Global Status Register
+      Rmw (SMF1.GLBSTAT, OSCFAIL, 1);
+      Rmw (SMF1.GLBSTAT, RFSLIP, 1);
+      Rmw (SMF1.GLBSTAT, FBSLIP, 1);
+
+      Rmw (SMF1.PLLCTL1, PLLMUL,  Shift_Left (PLL_Mult, 8));
+      Rmw (SMF1.PLLCTL1, REFCLKDIF, Refclkdiv);
+      Rmw (SMF1.PLLCTL1, PLLDIV, 16#1f#);
+
+      Rmw (SMF1.PLLCTL2, SPR_AMOUNT, 61);
+      Rmw (SMF1.PLLCTL2, ODPLL, 2 - 1);
+      Rmw (SMF1.PLLCTL2, MULMOD, 7);
+      Rmw (SMF1.PLLCTL2, SPREADINGRATE, 255);
+
+      Rmw (SMF2.PLLCTL3, PLL_MUL2, Shift_Left (165 - 1, 8));
+      Rmw (SMF2.PLLCTL3, REFCLKDIV2, 6 - 1);
+      Rmw (SMF2.PLLCTL3, PLLDIV2, 16#1f#);
+      Rmw (SMF2.PLLCTL3, ODPLL2, 2 - 1);
+
+      Rmw (SMF1.CSDIS, 7, 0, 16#88#);
+
+   end Initialize_Clocks;
+
+begin
+   Initialize_Clocks;
+end Setup_Pll;

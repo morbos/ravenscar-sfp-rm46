@@ -1,0 +1,67 @@
+V "GNAT Lib v2014"
+A -nostdinc
+A -O2
+A --RTS=/bkup/ada/ravenscar-sfp-rm46
+A -fcallgraph-info=da
+A -ffunction-sections
+A -fdata-sections
+A -gnatA
+A -mlittle-endian
+A -mfpu=vfpv3-d16
+A -mfloat-abi=hard
+A -mcpu=cortex-r4
+A -gnatp
+A -gnatg
+A -gnatn
+A -g
+A -mthumb
+P DB
+
+RN
+RV NO_IMPLEMENTATION_PRAGMAS
+RV SPARK_05
+
+U system.text_io%b	s-textio.adb		8f93b348 NE OL PK
+W interfaces%s		interfac.ads		interfac.ali
+W system%s		system.ads		system.ali
+
+U system.text_io%s	s-textio.ads		df5f3f4c NE OL PR PK
+W system%s		system.ads		system.ali
+
+D interfac.ads		20150501183734 69adb1b9 interfaces%s
+D system.ads		20150501193650 aa6d6fbd system%s
+D s-textio.ads		20150501183732 753250f1 system.text_io%s
+D s-textio.adb		20150501200520 930c5200 system.text_io%b
+X 1 interfac.ads
+38K9*Interfaces 179e15 4|34w6 34r22
+63M9*Unsigned_32 4|41r14 46r14 51r13 59r10 64r16 69r12 74r12 79r14 84r14
+X 2 system.ads
+60K9*System 179e11 3|35r9 81r5 4|36r14 166r5
+X 3 s-textio.ads
+35K16*Text_IO 2|60k9 3|81l12 81e19 4|36b21 166l12 166t19
+42U14*Initialize 4|102b14 133l8 133t18
+46b4*Initialized{boolean} 4|132m7
+54V13*Is_Tx_Ready{boolean} 4|139b13
+61U14*Put 61>19 4|153b14 156l8 156t11
+61e19 C{character} 4|153b19 155r31
+65V13*Use_Cr_Lf_For_New_Line{boolean} 4|162b13 165l8 165t30
+73V13*Is_Rx_Ready{boolean} 4|146b13
+78V13*Get{character} 4|93b13 96l8 96t11
+X 4 s-textio.adb
+38N4 SCI_BASE 42r28 47r28 52r27 60r24 65r30 70r26 75r26 80r28 85r28
+41m4 SCIGCR0{1|63M9} 42m8 42r8 43r21 44m24 44r24 105m7
+46m4 SCIGCR1{1|63M9} 47m8 47r8 48r21 49m24 49r24 110m7 130m7 130r18
+51m4 SCIFLR{1|63M9} 52m8 52r8 53r21 54m24 54r24 140r9 147r9
+56N4 TX_READY 140r20
+57N4 RX_READY 147r20
+59m4 BRS{1|63M9} 60m8 60r8 61r21 62m24 62r24 119m10
+64m4 SCIFORMAT{1|63M9} 65m8 65r8 66r21 67m24 67r24 123m7
+69m4 SCIRD{1|63M9} 70m8 70r8 71r21 72m24 72r24 95r29
+74m4 SCITD{1|63M9} 75m8 75r8 76r21 77m24 77r24 155m7
+79m4 SCIPIO0{1|63M9} 80m8 80r8 81r21 82m24 82r24 126m7
+84m4 SCIPIO8{1|63M9} 85m8 85r8 86r21 87m24 87r24 127m7
+114N10 Baud 116r39 117r34
+115N10 VCLK 116r26 117r27
+116N10 P 119r17
+117N10 M 119r21
+

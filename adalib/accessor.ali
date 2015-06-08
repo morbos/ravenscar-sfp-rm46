@@ -1,0 +1,84 @@
+V "GNAT Lib v2014"
+A -nostdinc
+A -O2
+A --RTS=/bkup/ada/ravenscar-sfp-rm46
+A -fcallgraph-info=da
+A -ffunction-sections
+A -fdata-sections
+A -gnatA
+A -mlittle-endian
+A -mfpu=vfpv3-d16
+A -mfloat-abi=hard
+A -mcpu=cortex-r4
+A -gnatp
+A -gnatg
+A -gnatn
+A -g
+A -mthumb
+P DB
+
+RN
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTIONS
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLEMENTATION_RESTRICTIONS
+RR NO_ELABORATION_CODE
+RV SPARK_05
+
+U accessor%b		accessor.adb		5e17fd6f NE OO PK
+
+U accessor%s		accessor.ads		eafc6399 NE OO PR PK
+W interfaces%s		interfac.ads		interfac.ali
+W system%s		system.ads		system.ali
+W system.rm46%s		s-rm46.ads		s-rm46.ali
+
+D accessor.ads		20150501183731 024fab8d accessor%s
+D accessor.adb		20150501183736 5c5856e2 accessor%b
+D ada.ads		20150501183739 3ffc8e18 ada%s
+D a-unccon.ads		20150501183740 f9eb8f06 ada.unchecked_conversion%s
+D interfac.ads		20150501183734 69adb1b9 interfaces%s
+D system.ads		20150501193650 aa6d6fbd system%s
+D s-rm46.ads		20150501183737 811e79ad system.rm46%s
+D s-stoele.ads		20150501183739 2dc34a04 system.storage_elements%s
+D s-stoele.adb		20150501183735 ed88f8fb system.storage_elements%b
+D s-unstyp.ads		20150501183729 510692af system.unsigned_types%s
+X 1 accessor.ads
+6K9*Accessor 24l5 24e13 2|1b14 54l5 54t13
+9I12*Bits32{natural} 13r12 14r12 18r24 19r24 2|4r24 5r24 31r17 32r17
+10I12*Bits32p1{positive} 2|9r17 35r17
+12R9*HiLo 15e14 22r30 2|29r30
+13i7*Hi{9I12} 2|39r28
+14i7*Lo{9I12} 2|40r28
+17U14*Rmw 17=19 18>19 19>19 20>19 2|3b14 26l8 26t11
+17m19 Register{7|38M9} 2|3b19 14r32 22m7 25m10
+18i19 Hi{9I12} 2|4b19 15r20
+19i19 Lo{9I12} 2|5b19 15r25 18r38 19r37
+20m19 Valarg{5|63M9} 2|6b19 17r19
+21U14*Rmw 21=19 22>19 23>19 2|28b14 53l8 53t11
+21m19 Register{7|38M9} 2|28b19 41r32 49m7 52m10
+22r19 Template{12R9} 2|29b19 39r19 40r19
+23m19 Valarg{5|63M9} 2|30b19 44r19
+X 2 accessor.adb
+7m7 Tmp{5|63M9} 14m7 20m7 20r19 21m7 21r19 22r25
+8m7 Mask{5|63M9} 16m7 17r30 19m7 19r31 20r31
+9i7 Masklen{1|10I12} 15m7 16r36
+11m7 Value{5|63M9} 17m7 18m7 18r31 21r26
+12m7 One{5|63M9} 16r31
+31i7 Hi{1|9I12} 39m7 42r20
+32i7 Lo{1|9I12} 40m7 42r25 45r38 46r37
+33m7 Tmp{5|63M9} 41m7 47m7 47r19 48m7 48r19 49r25
+34m7 Mask{5|63M9} 43m7 44r30 46m7 46r31 47r31
+35i7 Masklen{1|10I12} 42m7 43r36
+36m7 Value{5|63M9} 44m7 45m7 45r31 48r26
+37m7 One{5|63M9} 43r31
+X 5 interfac.ads
+38K9*Interfaces 1|3w6 3r25 5|179e15
+63M9*Unsigned_32 1|20r28 23r28 2|6r28 7r17 8r17 11r17 12r26 14r19 30r28 33r17
+. 34r17 36r17 37r26 41r19
+109V13*Shift_Left{63M9} 2|16s19 18s19 19s19 43s19 45s19 46s19
+X 6 system.ads
+60K9*System 1|4r6 4r25 6|179e11
+X 7 s-rm46.ads
+34K16*RM46 1|4w13 4r32 7|424e16
+38M9*Word 1|17r37 21r37 2|3r37 22r19 28r37 49r19
+
