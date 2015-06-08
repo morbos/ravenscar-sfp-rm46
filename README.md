@@ -1,7 +1,7 @@
 # ravenscar-sfp-rm46
 Port of Adacore's Libre ravenscar library to the RM46 (running in Thumb state)
 
-This is a port of the GPL'd Adacore Ravenscar profile to an Texas Instrument RM46 safety microconroller. Adacore has support 
+This is a port of the GPL'd Adacore Ravenscar profile to a Texas Instrument RM46 safety microconroller. Adacore has support 
 the TMS570 but not the RM46. Also, in Thumb state, the context switch is slightly different.
 
 To build this code, you need the GNAT compiler. It can be DL'd from libre.adacore.com for ARM targets (you can host on Windows
