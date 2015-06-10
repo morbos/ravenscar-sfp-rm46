@@ -29,8 +29,8 @@ U system.img_int%s	s-imgint.ads		a8b68f7f NE OL PU PK
 W system%s		system.ads		system.ali
 
 D system.ads		20150501193650 aa6d6fbd system%s
-D s-imgint.ads		20150501183730 02dbe0c2 system.img_int%s
-D s-imgint.adb		20150501183728 55d8c50a system.img_int%b
+D s-imgint.ads		20150610001447 02dbe0c2 system.img_int%s
+D s-imgint.adb		20150610001447 55d8c50a system.img_int%b
 X 1 system.ads
 60K9*System 179e11 2|36r9 57r5 3|32r14 98r5
 X 2 s-imgint.ads

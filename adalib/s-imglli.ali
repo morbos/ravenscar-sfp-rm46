@@ -30,8 +30,8 @@ U system.img_lli%s	s-imglli.ads		bb223a6c NE OL PU PK
 W system%s		system.ads		system.ali
 
 D system.ads		20150501193650 aa6d6fbd system%s
-D s-imglli.ads		20150501183738 114f55d1 system.img_lli%s
-D s-imglli.adb		20150501183733 863826eb system.img_lli%b
+D s-imglli.ads		20150610001448 114f55d1 system.img_lli%s
+D s-imglli.adb		20150610001448 863826eb system.img_lli%b
 X 1 system.ads
 60K9*System 179e11 2|36r9 57r5 3|32r14 98r5
 X 2 s-imglli.ads

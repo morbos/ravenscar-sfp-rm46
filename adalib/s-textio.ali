@@ -21,7 +21,7 @@ RN
 RV NO_IMPLEMENTATION_PRAGMAS
 RV SPARK_05
 
-U system.text_io%b	s-textio.adb		8f93b348 NE OL PK
+U system.text_io%b	s-textio.adb		a81adb4e NE OL PK
 W interfaces%s		interfac.ads		interfac.ali
 W system%s		system.ads		system.ali
 
@@ -31,7 +31,7 @@ W system%s		system.ads		system.ali
 D interfac.ads		20150501183734 69adb1b9 interfaces%s
 D system.ads		20150501193650 aa6d6fbd system%s
 D s-textio.ads		20150501183732 753250f1 system.text_io%s
-D s-textio.adb		20150501200520 930c5200 system.text_io%b
+D s-textio.adb		20150610001634 b4853a06 system.text_io%b
 X 1 interfac.ads
 38K9*Interfaces 179e15 4|34w6 34r22
 63M9*Unsigned_32 4|41r14 46r14 51r13 59r10 64r16 69r12 74r12 79r14 84r14

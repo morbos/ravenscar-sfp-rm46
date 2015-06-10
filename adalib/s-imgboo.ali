@@ -28,8 +28,8 @@ U system.img_bool%s	s-imgboo.ads		5fb41e56 NE OL PU PK
 W system%s		system.ads		system.ali
 
 D system.ads		20150501193650 aa6d6fbd system%s
-D s-imgboo.ads		20150501183729 f5d971eb system.img_bool%s
-D s-imgboo.adb		20150501183739 87b189f9 system.img_bool%b
+D s-imgboo.ads		20150610001446 f5d971eb system.img_bool%s
+D s-imgboo.adb		20150610001446 87b189f9 system.img_bool%b
 X 1 system.ads
 60K9*System 179e11 2|34r9 45r5 3|32r14 54r5
 X 2 s-imgboo.ads

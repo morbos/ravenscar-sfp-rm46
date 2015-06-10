@@ -84,14 +84,16 @@ _start_rom_t:
 	subs	r1,r1,#1
 	bne	0b
 1:
-	mrc	p15, #0, r3, c0, c0, #0	@ get proc id
-	mov	r0,#1
-spin:		
-	cmp	r0,#0
-	bne	spin
+@	mrc	p15, #0, r3, c0, c0, #0	@ get proc id
+@	mov	r0,#1
+@spin:		
+@	cmp	r0,#0
+@	bne	spin
+
+	blx	rm46_init
 	
 	blx	main
-
+	
 	blx	exit
 
 	.global __aeabi_ldiv0
