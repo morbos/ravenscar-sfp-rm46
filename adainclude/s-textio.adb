@@ -109,10 +109,10 @@ package body System.Text_IO is
       --  value is 0.
       SCIGCR1 := 16#03_00_00_22#;
 
-      --  Baud rate. PLLCLK=220Mhz, VCLK = PLLCLK / 2
+      --  Baud rate. PLLCLK=220Mhz, VCLK = PLLCLK / 4
       declare
          Baud : constant := 115200;
-         VCLK : constant := 110_000_000;
+         VCLK : constant := 55_000_000;
          P : constant := VCLK / (16 * Baud) - 1;
          M : constant := (VCLK / Baud) rem 16;
       begin
