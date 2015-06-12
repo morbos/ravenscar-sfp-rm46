@@ -284,10 +284,6 @@ package body System.BB.Board_Support is
 
    procedure Initialize_Board is
    begin
-      Initialize_Clocks;
-
-      Pll_Spinup;
-
       --  Disable all interrupts, except for NMIs
 
       Write (REQENACLR0, not NMI_Ints);
